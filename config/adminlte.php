@@ -284,13 +284,13 @@ return [
         [
             'text' => 'Schedulling',
             'route' => 'committee.submission',
-            'icon' => 'fas fa-church',
+            'icon' => 'fa fa-calendar',
             'roles' => 'committee',
         ],
         [
             'text' => 'Buat Schedule',
             'route' => 'committee.create',
-            'icon' => 'fas fa-dragon',
+            'icon' => 'fa fa-edit',
             'roles' => 'committee',
         ],
 

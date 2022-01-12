@@ -4,6 +4,7 @@ use App\Models\Config_Sympozia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\FormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,7 @@ Route::get('/author/submission', \App\Http\Livewire\Author\SubmissionIdx::class)
 Route::get('/admin', \App\Http\Livewire\Admin\Idx::class)->name('admin.home')->middleware(['auth']);
 Route::get('/committee', \App\Http\Livewire\Committee\Idx::class)->name('committee.home')->middleware(['auth']);
 Route::get('/committee/news', \App\Http\Livewire\Committee\NewsIdx::class)->name('committee.news')->middleware(['auth']);
-Route::get('/committee/submission', \App\Http\Livewire\Committee\Submission\SchedullingIdx::class)->name('committee.submission')->middleware(['auth']);
+Route::get('/committee/submission', [\App\Http\Livewire\Committee\Submission\SchedullingIdx::class, 'show'])->name('committee.submission')->middleware(['auth']);
 Route::get('/committee/create', \App\Http\Livewire\Committee\Create\CreateIdx::class)->name('committee.create')->middleware(['auth']);
 Route::get('/user/admin', \App\Http\Livewire\User\Admin\Idx::class)->name('user.admin')->middleware(['auth']);
 Route::get('/user/profile', \App\Http\Livewire\User\Profile\Idx::class)->name('user.profile')->middleware(['auth']);
@@ -41,3 +42,6 @@ Route::get('/user/refresh', function () {
     Session::flush();
     return redirect('/');
 })->name('user.refresh');
+Route::get('form', [FormController::class, 'index']);
+Route::post('/committee/submit', [FormController::class, 'store']);
+Route::get('/committee/submission', [FormController::class, 'show'])->name('committee.submission')->middleware(['auth']);

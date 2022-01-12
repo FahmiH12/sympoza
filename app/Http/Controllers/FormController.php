@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Livewire\Committee\Submission;
+namespace App\Http\Controllers;
 
-use Livewire\Component;
-use App\Models\Manuscript_Sympozia;
+use Illuminate\Http\Request;
 use App\Models\Form;
+use Livewire\Component;
 
-class SchedullingList extends Component
+
+
+class FormController extends Controller
 {
-    public function render()
-    {
-        $papers = Manuscript_Sympozia::all();
-        return view('livewire.committee.submission.schedulling-list', compact('papers'));
+    public function index(){
+        $form = Form::all();
+        return view('committee.submission', ['forms' => $form]);
     }
 
     public function store(Request $request){
@@ -27,11 +28,12 @@ class SchedullingList extends Component
         $form->path= $request->path;
         $form->save();
 
-        return redirect('livewire.committee.submission.schedulling-list');
+        return redirect('committee.submission');
     }
 
     public function show(Form $form){
         $data= Form::All();
-        return view('livewire.committee.submission.schedulling-list', ['forms' => $data]);
+        return view('livewire.committee.submission.schedulling-list', ['forms' => $data])->layout('adminlte::page');
     }
+
 }
